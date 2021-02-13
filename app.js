@@ -24,6 +24,8 @@ const showImages = (images) => {
 		div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
 		gallery.appendChild(div);
 	});
+	// if image loaded then spinner will be toggle
+	spinner();
 };
 
 const getImages = (query) => {
@@ -44,7 +46,9 @@ const selectItem = (event, img) => {
 	if (item === -1) {
 		sliders.push(img);
 	} else {
-		alert('Hey, Already added !');
+		// i just filter the existing img using filter method
+		sliders = sliders.filter((fil) => fil != img);
+		element.classList.remove('added');
 	}
 };
 var timer;
@@ -80,7 +84,6 @@ const createSlider = () => {
 			sliderContainer.appendChild(item);
 		});
 		changeSlide(0);
-		console.log(duration);
 		timer = setInterval(function () {
 			slideIndex++;
 			changeSlide(slideIndex);
@@ -120,6 +123,8 @@ searchBtn.addEventListener('click', function () {
 	clearInterval(timer);
 	const search = document.getElementById('search');
 	getImages(search.value);
+	// search start and spinner also running
+	spinner();
 	sliders.length = 0;
 });
 
@@ -140,3 +145,8 @@ document.querySelector('#duration').addEventListener('keyup', (e) => {
 		sliderBtn.click();
 	}
 });
+
+// extra added spinner
+const spinner = () => {
+	document.querySelector('.spinner').classList.toggle('d-none');
+};
