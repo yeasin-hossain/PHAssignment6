@@ -16,7 +16,6 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const showImages = (images) => {
 	// if images not empty then show images else show notification
 	if (images.length > 1) {
-		console.log(images.length);
 		imagesArea.style.display = 'block';
 		gallery.innerHTML = '';
 		// show gallery title
@@ -132,6 +131,11 @@ searchBtn.addEventListener('click', function () {
 	clearInterval(timer);
 	const search = document.getElementById('search');
 	getImages(search.value);
+	search.value.length == 0
+		? toastNotification(
+				'You Search Word Is Invalid, But We showing Some Random Image'
+		  )
+		: '';
 	// search start and spinner also running
 	spinner();
 	sliders.length = 0;
