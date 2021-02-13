@@ -14,18 +14,25 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images
 const showImages = (images) => {
-	imagesArea.style.display = 'block';
-	gallery.innerHTML = '';
-	// show gallery title
-	galleryHeader.style.display = 'flex';
-	images.forEach((image) => {
-		let div = document.createElement('div');
-		div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-		div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-		gallery.appendChild(div);
-	});
-	// if image loaded then spinner will be toggle
-	spinner();
+	// if images not empty then show images else show notification
+	if (images.length > 1) {
+		console.log(images.length);
+		imagesArea.style.display = 'block';
+		gallery.innerHTML = '';
+		// show gallery title
+		galleryHeader.style.display = 'flex';
+		images.forEach((image) => {
+			let div = document.createElement('div');
+			div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
+			div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+			gallery.appendChild(div);
+		});
+		// if image loaded then spinner will be toggle
+		spinner();
+	} else {
+		spinner();
+		toastNotification('Sorry Nothing Found, Try Again');
+	}
 };
 
 const getImages = (query) => {
@@ -56,7 +63,7 @@ const createSlider = () => {
 	// check slider image length
 	if (sliders.length < 2) {
 		// alert('Select at least 2 image.');
-		createNotification('Select at least 2 image.');
+		toastNotification('Select at least 2 image.');
 		return;
 	}
 	// crate slider previous next area
@@ -91,7 +98,7 @@ const createSlider = () => {
 		}, duration);
 	} else {
 		// alert('Timer cannot be negative');
-		createNotification('Timer cannot be negative');
+		toastNotification('Timer cannot be negative');
 	}
 };
 
@@ -155,7 +162,7 @@ const spinner = () => {
 
 //notification Modal, inspired by florin pop
 
-function createNotification(noticeMessage) {
+const toastNotification = (noticeMessage) => {
 	const model = document.querySelector('.model');
 	const notification = document.createElement('div');
 	notification.classList.add('notice');
@@ -165,4 +172,4 @@ function createNotification(noticeMessage) {
 	setTimeout(() => {
 		notification.remove();
 	}, 4000);
-}
+};

@@ -68,7 +68,7 @@ img {
 /* Custom Notification */
 .model {
 	position: fixed;
-	bottom: 10px;
+	bottom: 30px;
 	right: 10px;
 	z-index: 999;
 }
