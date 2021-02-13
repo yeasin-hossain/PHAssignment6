@@ -67,21 +67,27 @@ const createSlider = () => {
 	sliderContainer.appendChild(prevNext);
 	document.querySelector('.main').style.display = 'block';
 	// hide image aria
-	imagesArea.style.display = 'none';
 	const duration = document.getElementById('duration').value || 1000;
-	sliders.forEach((slide) => {
-		let item = document.createElement('div');
-		item.className = 'slider-item';
-		item.innerHTML = `<img class="w-100"
-    src="${slide}"
-    alt="">`;
-		sliderContainer.appendChild(item);
-	});
-	changeSlide(0);
-	timer = setInterval(function () {
-		slideIndex++;
-		changeSlide(slideIndex);
-	}, duration);
+	// i just check duration of timer by if block. if grater then 1 then run slider
+	if (duration > 1) {
+		imagesArea.style.display = 'none';
+		sliders.forEach((slide) => {
+			let item = document.createElement('div');
+			item.className = 'slider-item';
+			item.innerHTML = `<img class="w-100"
+		src="${slide}"
+		alt="">`;
+			sliderContainer.appendChild(item);
+		});
+		changeSlide(0);
+		console.log(duration);
+		timer = setInterval(function () {
+			slideIndex++;
+			changeSlide(slideIndex);
+		}, duration);
+	} else {
+		alert('Timer cannot be negative');
+	}
 };
 
 // change slider index
