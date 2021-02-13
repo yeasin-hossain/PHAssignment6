@@ -55,7 +55,8 @@ var timer;
 const createSlider = () => {
 	// check slider image length
 	if (sliders.length < 2) {
-		alert('Select at least 2 image.');
+		// alert('Select at least 2 image.');
+		createNotification('Select at least 2 image.');
 		return;
 	}
 	// crate slider previous next area
@@ -89,7 +90,8 @@ const createSlider = () => {
 			changeSlide(slideIndex);
 		}, duration);
 	} else {
-		alert('Timer cannot be negative');
+		// alert('Timer cannot be negative');
+		createNotification('Timer cannot be negative');
 	}
 };
 
@@ -150,3 +152,17 @@ document.querySelector('#duration').addEventListener('keyup', (e) => {
 const spinner = () => {
 	document.querySelector('.spinner').classList.toggle('d-none');
 };
+
+//notification Modal, inspired by florin pop
+
+function createNotification(noticeMessage) {
+	const model = document.querySelector('.model');
+	const notification = document.createElement('div');
+	notification.classList.add('notice');
+	notification.innerText = noticeMessage;
+	model.appendChild(notification);
+
+	setTimeout(() => {
+		notification.remove();
+	}, 4000);
+}
